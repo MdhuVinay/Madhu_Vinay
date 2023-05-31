@@ -12,12 +12,12 @@ import studentManagementSystemGenericUtils.IPathConstants;
 
 public class FetchDataFromExcel 
 {
-	//from GitHub
+	//pull request
 	@Test(dataProvider = "data")
 	public void getData(String firstName,String lastName,String phoneNum,String gender)
 	{
 		
 		System.out.println(firstName+" "+lastName+" "+phoneNum+" "+gender);
 	}
-	//send from eclipse
+
 }
