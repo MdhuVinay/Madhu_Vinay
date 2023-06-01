@@ -12,7 +12,7 @@ import studentManagementSystemGenericUtils.IPathConstants;
 
 public class FetchDataFromExcel 
 {
-	//pull request
+	//pull conflict from local
 	@Test(dataProvider = "data")
 	public void getData(String firstName,String lastName,String phoneNum,String gender)
 	{
