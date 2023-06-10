@@ -20,5 +20,6 @@ public class BusinessClassPage
 		commonComponents.selectTeacher(teacher, wLib);
 		commonComponents.fees(fee);
 		commonComponents.getSubmitBtnOfPopup().click();
+		System.out.println(" ");
 	}
 }
