@@ -18,7 +18,7 @@ public class FetchDataFromExcel
 	{
 		
 		System.out.println(firstName+" "+lastName+" "+phoneNum+" "+gender);
+		System.out.println(" ");
 	}
 	//pull request from eclisple
-
 }
