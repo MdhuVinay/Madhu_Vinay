@@ -21,4 +21,9 @@ public class FetchDataFromExcel
 		System.out.println(" ");
 	}
 	//pull request from eclisple
+	
+	public void simple()
+	{
+		
+	}
 }
