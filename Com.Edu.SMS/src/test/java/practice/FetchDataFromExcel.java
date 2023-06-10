@@ -30,6 +30,6 @@ public class FetchDataFromExcel
 	
 	public void simple()
 	{
-		
+		System.out.println(" ");
 	}
 }
