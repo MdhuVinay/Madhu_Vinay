@@ -1,7 +1,10 @@
 package studentManagementSystemGenericUtils;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterClass;
@@ -24,6 +27,7 @@ public class BaseClass
 	public FileUtility fLib=new FileUtility();
 	public DataBaseUtility dLib=new DataBaseUtility();
 	public WebDriver driver;
+	public Logger logger;
 
 	//connect to database
 	@BeforeSuite
@@ -35,13 +39,21 @@ public class BaseClass
 
 	//browser setup
 	@BeforeClass
-	public void configureBeforeClass() throws Throwable
+	public void configureBeforeClass() throws Throwable 
 	{
+		logger=LogManager.getLogger(this.getClass());
+		
+		ChromeOptions options = new ChromeOptions();
+		options.addArguments("--disable-notifications");
+		options.addArguments("--remote-allow-Origins=*");
+		options.setExperimentalOption("excludeSwitches", new String[] {"enable-automatiom"});
+		
+		
 		String BROWSER = fLib.getPropertyKeyValue("browser");
 		if (BROWSER.equalsIgnoreCase("chrome"))
 		{
 			WebDriverManager.chromedriver().setup();
-			driver=new ChromeDriver();
+			driver=new ChromeDriver(options);
 		}
 		else if (BROWSER.equalsIgnoreCase("firefox")) 
 		{

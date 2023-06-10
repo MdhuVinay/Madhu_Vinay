@@ -62,13 +62,14 @@ public class AdminClassroomPage
 	//create classroom
 	public String createClassromm( WebDriver driver,ExcelUtility eLib) throws Throwable
 	{
-		CommonComponents commonComponents = new CommonComponents(driver);
+		
 		AdminDashboardPage adminDashboard = new AdminDashboardPage(driver);
 		adminDashboard.getClassroomLink().click();
 		String className=randomNumber+eLib.getExcelData("Classroom", 0, 1);
 		name.sendKeys(className);
 		String count=randomNumber+eLib.getExcelData("Classroom", 1, 1);
 		stdCount.sendKeys(count);
+		CommonComponents commonComponents = new CommonComponents(driver);
 		commonComponents.clickOnSubmitBtnOfPage();
 				return className;
 	}

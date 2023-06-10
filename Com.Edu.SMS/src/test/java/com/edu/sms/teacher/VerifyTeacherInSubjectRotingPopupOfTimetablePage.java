@@ -67,7 +67,7 @@ public class VerifyTeacherInSubjectRotingPopupOfTimetablePage extends BaseClass
 
 		//create teacher
 		AddTeacherPage addTeacher = new AddTeacherPage(driver);
-		addTeacher.createTeacher(eLib.getMultipleData("Data"), driver, wLib);
+		addTeacher.createTeacher(eLib.getMultipleData("Data"), driver, wLib,jLib);
 
 		//robot class
 		jLib.escapeKey();

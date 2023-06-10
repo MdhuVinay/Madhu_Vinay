@@ -3,17 +3,17 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="com.edu.sms.timetable.VerifyTimetable">
+      <class name="com.edu.sms.student.EditStudent">
         <methods>
           <include name="configureAfterClass"/>
           <include name="configureBeforeClass"/>
           <include name="configureAfterSuite"/>
+          <include name="editStudent"/>
           <include name="configureAfterMethod"/>
           <include name="configureBeforeMethod"/>
-          <include name="VerifyTimetable"/>
           <include name="configureBeforeSuite"/>
         </methods>
-      </class> <!-- com.edu.sms.timetable.VerifyTimetable -->
+      </class> <!-- com.edu.sms.student.EditStudent -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

@@ -19,7 +19,8 @@ public class AdminPettycashPage
 	@FindBy(xpath = "//div[@id='modalViewPettyCash']//span[@class='glyphicon glyphicon-remove']") private WebElement cancelBtn;
 	@FindBy(xpath = "//div[@class='dataTables_info']") private WebElement tableInfo;
 	@FindBy(xpath = "//th[@aria-label='Date: activate to sort column ascending']") private WebElement dateSort;
-	 
+	//tbody//td[7]//a[contains(@data-id,'1,')][1]
+	//
 	
 	
 
@@ -59,16 +60,14 @@ public class AdminPettycashPage
 		dateSort.click();
 	}
 	//verify pettycash
-	public void verifyPettycash(WebDriver driver, WebdriverUtility wLib, String description, String amount) throws Throwable
+	public void verifyPettycash(WebDriver driver, WebdriverUtility wLib, String description, String amount, String teacher) throws Throwable
 	{
 		AdminDashboardPage adminDashboard = new AdminDashboardPage(driver);
 		CommonComponents commonComponents = new CommonComponents(driver);
 		adminDashboard.pettyCashLink();
 		commonComponents.showDropdown(wLib);
-		commonComponents.search("Teacher 2");
-		dateSort();
+		commonComponents.search(teacher);
 		details();
-		
 		for (int i=0; i<details.size() ; i++)
 		{
 			WebElement index = details.get(i);
@@ -80,6 +79,7 @@ public class AdminPettycashPage
 				AdminDashboardPage adminDashboard1 = new AdminDashboardPage(driver);
 				cancelBtn.click();
 				driver.findElement(By.xpath("//a[@id='aApprove_"+index+"']"));
+				System.out.println("petty cash approver successfully");
 				Thread.sleep(1000);
 				break;
 			}

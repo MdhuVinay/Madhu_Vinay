@@ -2,6 +2,7 @@ package Com.Edu.ObjectRepo;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
@@ -10,33 +11,62 @@ import studentManagementSystemGenericUtils.WebdriverUtility;
 public class AdminDashboardPage 
 {
 	//initialization
-	@FindBy(xpath = "//span[normalize-space()='Classroom']")private WebElement classroomLink;
+	@FindBy(xpath = "//span[normalize-space()='Classroom']")
+	@CacheLookup
+	private WebElement classroomLink;
 
-	@FindBy(xpath = "//span[normalize-space()='Grade']")private WebElement gradeLink ;
+	@FindBy(xpath = "//span[normalize-space()='Grade']")
+	@CacheLookup
+	private WebElement gradeLink ;
 
-	@FindBy(xpath = "//span[normalize-space()='Subject']")private WebElement subjectLink ;
+	@FindBy(xpath = "//span[normalize-space()='Subject']")
+	@CacheLookup
+	private WebElement subjectLink ;
 
-	@FindBy(xpath = "//span[normalize-space()='Teacher']")private WebElement teacherLink ;
+	@FindBy(xpath = "//span[normalize-space()='Teacher']")
+	@CacheLookup
+	private WebElement teacherLink ;
 
-	@FindBy(xpath  = "//a[.=' Add Teacher']")private WebElement addTeacherLink ;
+	@FindBy(xpath  = "//a[.=' Add Teacher']")
+	@CacheLookup
+	private WebElement addTeacherLink ;
 
-	@FindBy(xpath  = "//a[normalize-space()='All Teacher']")private WebElement allTeacherLink ;
+	@FindBy(xpath  = "//a[normalize-space()='All Teacher']")
+	@CacheLookup
+	private WebElement allTeacherLink ;
 
-	@FindBy(xpath = "//span[normalize-space()='Subject Routing']")private WebElement subjectRoutingLink ;
+	@FindBy(xpath = "//span[normalize-space()='Subject Routing']")
+	@CacheLookup
+	private WebElement subjectRoutingLink ;
 
-	@FindBy(xpath = "//span[normalize-space()='Timetable']")private WebElement timetableLink ;
+	@FindBy(xpath = "//span[normalize-space()='Timetable']")
+	@CacheLookup
+	private WebElement timetableLink ;
 
-	@FindBy(xpath = "//span[normalize-space()='Student']")private WebElement studentLink ;
+	@FindBy(xpath = "//span[normalize-space()='Student']")
+	@CacheLookup
+	private WebElement studentLink ;
 
-	@FindBy(xpath  = "//a[.=' Add Student']")private WebElement addStudentLink ;
+	@FindBy(xpath  = "//a[.=' Add Student']")
+	@CacheLookup
+	private WebElement addStudentLink ;
 
-	@FindBy(xpath = "//a[normalize-space()='All Student']")private WebElement allStudentLink ;
+	@FindBy(xpath = "//a[normalize-space()='All Student']")
+	@CacheLookup
+	private WebElement allStudentLink ;
 
-	@FindBy(xpath = "//a[normalize-space()='Leave Student']")private WebElement leaveStudentLink ;
+	@FindBy(xpath = "//a[normalize-space()='Leave Student']")
+	@CacheLookup
+	private WebElement leaveStudentLink ;
 
 	@FindBy(xpath = "//span[normalize-space()='Exam']")private WebElement examLink ;
-	@FindBy(xpath = "//a[normalize-space()='Create Exam']")private WebElement createExamLink ;
-	@FindBy(xpath = "//a[normalize-space()='Exam Timetable']")private WebElement examTimetableLink ;
+	
+	@FindBy(xpath = "//a[normalize-space()='Create Exam']")
+	private WebElement createExamLink ;
+	
+	@FindBy(xpath = "//a[normalize-space()='Exam Timetable']")
+	private WebElement examTimetableLink ;
+	
 	@FindBy(xpath = "//a[normalize-space()='Student Exam Marks']")private WebElement studentExamMarksLink ;
 	@FindBy(xpath = "//a[normalize-space()='Student Exam Marks History']")private WebElement studentExamMarksHistoryLink ;
 
@@ -185,25 +215,21 @@ public class AdminDashboardPage
 	}
 
 	//click On studentLink
-	public void clickOnstudentLink(String linkName,WebdriverUtility wLib, WebDriver driver)
+	public void clickOnstudentLink()
 	{
 		studentLink.click();
-		
-		if (linkName.equalsIgnoreCase("Add Student")) 
-		{
-			wLib.waitTillElementToBeClickable(driver, addStudentLink);
-			addStudentLink.click();
-		}
-		else if(linkName.equalsIgnoreCase("All Student"))
-		{
-			wLib.waitTillElementToBeClickable(driver, allStudentLink);
-			allStudentLink.click();
-		}
-		else if(linkName.equalsIgnoreCase("Leave Student"))
-		{
-			wLib.waitTillElementToBeClickable(driver, leaveStudentLink);
-			leaveStudentLink.click();
-		}
+	}
+	
+	//click on all Student link
+	public void clickOnAllStudentLink()
+	{
+		allStudentLink.click();
+	}
+	
+	//click on add student link
+	public void clickOnAddStudentLink()
+	{
+		addStudentLink.click();
 	}
 
 	/*//click On addStudentLink

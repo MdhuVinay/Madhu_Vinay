@@ -1,35 +1,70 @@
 package Com.Edu.ObjectRepo;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
-
 import org.apache.poi.EncryptedDocumentException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
 import studentManagementSystemGenericUtils.ExcelUtility;
 import studentManagementSystemGenericUtils.JavaUtility;
 import studentManagementSystemGenericUtils.WebdriverUtility;
 
-public class AddTeacherPage {
-
+public class AddTeacherPage 
+{
+	/*@CacheLookup
+	 * This annotation, when applied over a WebElement, instructs Selenium to keep a
+	 * cache of the WebElement instead of searching for the WebElement every time
+	 * from the WebPage. This helps us save a lot of time.
+	 */
 	//initialization
-	@FindBy(xpath = "//input[@id='index_number']") private WebElement indexNumTxtFld;
-	@FindBy(xpath = "//input[@id='full_name']") private WebElement fullNameTxtFld;
-	@FindBy(xpath = "//input[@id='i_name']") private WebElement nameWithInitialTxtFld;
-	@FindBy(xpath = "//input[@id='address']") private WebElement addressTxtFld;
-	@FindBy(xpath = "//input[@id='phone']") private WebElement phoneNumTxtFld;
-	@FindBy(xpath = "//input[@id='email']") private WebElement emailTxtFld;
-	@FindBy(xpath = "//select[@id='gender']") private WebElement genderDropdown;
-	@FindBy(xpath = "//button[@class='btn btn-primary']") private WebElement submitBtnOfPage;
-	@FindBy(xpath = "//input[@class='form-control input-sm']") private WebElement searchTxtFld;
-	@FindBy(xpath = "//a[@href='#modalViewform']") private  List<WebElement> allTeacherNames;
+	@FindBy(xpath = "//input[@id='index_number']")
+	@CacheLookup
+	private WebElement indexNumTxtFld;
+	
 
+	@FindBy(xpath = "//input[@id='full_name']") 
+	@CacheLookup
+	private WebElement fullNameTxtFld;
+
+	@FindBy(xpath = "//input[@id='i_name']")
+	@CacheLookup
+	private WebElement nameWithInitialTxtFld;
+
+	@FindBy(xpath = "//input[@id='address']") 
+	@CacheLookup
+	private WebElement addressTxtFld;
+
+	@FindBy(xpath = "//input[@id='phone']")
+	@CacheLookup
+	private WebElement phoneNumTxtFld;
+
+	@FindBy(xpath = "//input[@id='email']") 
+	@CacheLookup
+	private WebElement emailTxtFld;
+
+	@FindBy(xpath = "//select[@id='gender']") 
+	@CacheLookup
+	private WebElement genderDropdown;
+
+	@FindBy(xpath = "//button[@class='btn btn-primary']") 
+	@CacheLookup
+	private WebElement submitBtnOfPage;
+
+	@FindBy(xpath = "//input[@class='form-control input-sm']")
+	@CacheLookup
+	private WebElement searchTxtFld;
+
+	@FindBy(xpath = "//a[@href='#modalViewform']") 
+	@CacheLookup
+	private  List<WebElement> allTeacherNames;
+
+	JavaUtility jLib=new JavaUtility();
+	int randomNumber=jLib.getRandomNumber();
 
 	//declaration
 	public  AddTeacherPage(WebDriver driver)
@@ -37,7 +72,7 @@ public class AddTeacherPage {
 		PageFactory.initElements(driver, this);
 	}
 
-	
+
 	//utilization
 	public WebElement getIndexNumTxtFld() {
 		return indexNumTxtFld;
@@ -76,120 +111,112 @@ public class AddTeacherPage {
 	public WebElement getSearchTxtFld() {
 		return searchTxtFld;
 	}
-	
-	public List<WebElement> getAllTeacherNames() {
+
+	public List<WebElement> getAllTeacherNames() 
+	{
 		return allTeacherNames;
 	}
-	
 
 	//utilization
 	//enetr index nmber
 	public void indexNumber(String indexNum) throws EncryptedDocumentException, IOException	
 	{
-//		String value = eLib.getExcelData(sheetName, rowNum, cellNum);
 		indexNumTxtFld.sendKeys(indexNum);
 	}
-	
+
 	//enter full name into full name textfield
 	public void fullName(String fullName) throws EncryptedDocumentException, IOException
 	{
-//		String value = eLib.getExcelData(sheetName, rowNum, cellNum);
 		fullNameTxtFld.sendKeys(fullName);
 	}
 
 	//enter Name With Initials into Name With Initials textfield
 	public void nameWithInitial(String nameWithInitial) throws EncryptedDocumentException, IOException
 	{
-//		String nameWithInitial = eLib.getExcelData(sheetName, rowNum, cellNum);
 		nameWithInitialTxtFld.sendKeys(nameWithInitial);
 	}
 
 	//enetr Address into Adress textfield
 	public void adress(String adress) throws EncryptedDocumentException, IOException
 	{
-//		String adress = eLib.getExcelData(sheetName, rowNum, cellNum);
+		//		String adress = eLib.getExcelData(sheetName, rowNum, cellNum);
 		addressTxtFld.sendKeys(adress);
 	}
 	//enetr Phone Number into Phone Number textfield
 	public void phoneNum(String phoneNum) throws EncryptedDocumentException, IOException
 	{
-//		String phoneNum = eLib.getExcelData(sheetName, rowNum, cellNum);
 		phoneNumTxtFld.sendKeys(phoneNum);
 	}
 	//enetr emanil into email textfield
 	public void email(String email) throws EncryptedDocumentException, IOException
 	{
-//		String email = eLib.getExcelData(sheetName, rowNum, cellNum);
 		emailTxtFld.sendKeys(email);
 	}
-	
+
 	//search
-		public void search(String value )
-		{
-			searchTxtFld.sendKeys(value);	
-		}
-
-	/*//create teacher
-	public void createTeacher(WebdriverUtility wLib, JavaUtility jLib,ExcelUtility eLib) throws EncryptedDocumentException, IOException
+	public void search(String value )
 	{
-		int randomNumber = jLib.getRandomNumber();
-		String indexNum = eLib.getExcelData("Data", 0, 1+randomNumber);
-		indexNumber(indexNum);
-		String fullName = eLib.getExcelData("Data", 1, 1+randomNumber);
-		fullName(fullName);
-		String nameWithInitial = eLib.getExcelData("Data", 2, 1+randomNumber);
-		nameWithInitial(nameWithInitial);
-		String adress = eLib.getExcelData("Data", 3, 1+randomNumber);
-		adress(adress);
-		String phoneNum = eLib.getExcelData("Data", 4, 1);
-		phoneNum(phoneNum);
-		String email = eLib.getExcelData("Data", 5, 1);
-		email(email);
-		CommonComponents commonComponents = new CommonComponents();
-		commonComponents.selectGender(wLib, "Male");
-		commonComponents.uploadPhoto(wLib, addressTxtFld, "C:\\Users\\dell\\Pictures\\sms.png");
-		commonComponents.getSubmitBtnOfPage();
-	}*/
-
+		searchTxtFld.sendKeys(value);	
+	}
 
 	//Business Library
 	//create teacher
-	JavaUtility jLib=new JavaUtility();
-	int randomNumber = jLib.getRandomNumber();
-	public void createTeacher(HashMap<String, String> fields, WebDriver driver, WebdriverUtility wLib )throws Throwable
+
+
+
+	public HashMap<String, String> createTeacher(HashMap<String, String> fields, WebDriver driver, WebdriverUtility wLib,JavaUtility jLib )throws Throwable
 	{
+		HashMap<String, String> hashMap = new HashMap<String, String>();
+		String teacher = null;
 		for(Entry<String, String> set: fields.entrySet())
 		{
-			
-			if(set.getKey().equalsIgnoreCase("index_number")||set.getKey().equalsIgnoreCase("email")||set.getKey().equalsIgnoreCase("i_name"))
+			if(set.getKey().equalsIgnoreCase("index_number")||set.getKey().equalsIgnoreCase("email")||set.getKey().equalsIgnoreCase("i_name")||set.getKey().equalsIgnoreCase("full_name"))
 			{
-				driver.findElement(By.name(set.getKey())).sendKeys(randomNumber+set.getValue());
+				if (set.getKey().equalsIgnoreCase("i_name"))
+				{
+					teacher = randomNumber+set.getValue();
+					driver.findElement(By.name(set.getKey())).sendKeys(teacher);
+					hashMap.put(set.getKey(), teacher);
+				}
+				else if(set.getKey().equalsIgnoreCase("email"))
+				{
+					teacher =randomNumber+set.getValue();
+					driver.findElement(By.name(set.getKey())).sendKeys(teacher);
+					hashMap.put(set.getKey(), teacher);
+				}
+				else 
+				{
+					teacher = jLib.getRandomNumber()+set.getValue();
+					driver.findElement(By.name(set.getKey())).sendKeys(randomNumber+set.getValue());
+					hashMap.put(set.getKey(), teacher);
+				}
 			}
 			else
 			{
+				teacher = randomNumber+set.getValue();
 				driver.findElement(By.name(set.getKey())).sendKeys(set.getValue());
+				hashMap.put(set.getKey(), teacher);
 			}
 		}
 		wLib.selectElementInDropdown("Male", genderDropdown);
 		submitBtnOfPage.click();
-		
+		return hashMap;
 	}
-	
+
 	//verify teacher
-	public void verifyTeacher(WebDriver driver, WebdriverUtility wLib, ExcelUtility eLib, JavaUtility jLib) throws Throwable
+	public void verifyTeacher(WebDriver driver, WebdriverUtility wLib, ExcelUtility eLib, JavaUtility jLib,String fullName) throws Throwable
 	{
 		AdminDashboardPage adminDashboard = new AdminDashboardPage(driver);
-		String fullname =randomNumber+eLib.getExcelData("Data", 2, 1);
 		CommonComponents commonComponents = new CommonComponents(driver);
 		adminDashboard.teacherLink();
 		Thread.sleep(1000);
 		adminDashboard.allTeacherLink();
 		commonComponents.showDropdown(wLib);
-		searchTxtFld.sendKeys(fullname);
+		searchTxtFld.sendKeys(fullName);
 		for (WebElement teacher : allTeacherNames)
 		{
 			String text = teacher.getText();
-			if (text.equalsIgnoreCase(fullname))
+			if (text.equalsIgnoreCase(fullName))
 			{
 				System.out.println("teacher is created");
 			}

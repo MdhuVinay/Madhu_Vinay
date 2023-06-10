@@ -150,7 +150,7 @@ public class CommonComponents
 	//select classroom in classroomdropdown
 	public void selectClassroom(String classroom,WebdriverUtility wLib)
 	{
-		wLib.selectElementInDropdown(classroomDropdown, classroom);
+		wLib.selectElementInDropdown(classroom, classroomDropdown);
 	}
 
 	//enter start time into start time textfield
@@ -221,5 +221,13 @@ public class CommonComponents
 	{
 		String text = teacherDropdown.getText();
 		return text;
+	}
+	public void clickOnSubmitButtonOfPopup()
+	{
+		try {
+			submitBtnOfPopup.click();
+		} catch (Exception e) {
+			submitBtnOfPopup.click();		}
+		
 	}
 }

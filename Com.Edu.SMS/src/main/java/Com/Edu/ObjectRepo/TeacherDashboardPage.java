@@ -12,7 +12,11 @@ public class TeacherDashboardPage
 	
 	@FindBy(xpath = "//span[@class='hidden-xs']") private WebElement teacherMenuBtn;
 	@FindBy(xpath = "//span[normalize-space()='Timetable']") private WebElement timetableLink;
+	@FindBy(xpath = "//a[normalize-space()='My Timetable']") private WebElement myTimetableLink;
 	
+	
+
+
 	//initialization
 	public TeacherDashboardPage(WebDriver driver)
 	{
@@ -31,6 +35,9 @@ public class TeacherDashboardPage
 	public WebElement getTimetableLink() {
 		return timetableLink;
 	}
+	public WebElement getMyTimetableLink() {
+		return myTimetableLink;
+	}
 	
 	//actions
 	//click on mypettysash link
@@ -43,6 +50,11 @@ public class TeacherDashboardPage
 	public void clickOnTimetableLink()
 	{
 		timetableLink.click();
+	}
+	//click on my timetable link
+	public void clickOnMyTimetableLink()
+	{
+		myTimetableLink.click();
 	}
 	
 	//verify teacher dashboard

@@ -32,14 +32,29 @@ public class AddStudentPage
 	@FindBy(xpath = "//button[.='Submit']") private WebElement submitBtn;
 	@FindBy(xpath = "//div[@class='msk-heading']//span[@class='glyphicon glyphicon-remove']") private WebElement cancelBtn;
 	@FindBy(xpath = "//div[@class='box-body table-responsive']//tr//td[2]") private List<WebElement> StdNames;
+	@FindBy(xpath = "//button[@id='btnSubmit1'] ") private WebElement popUpSubmitBtn;
+	@FindBy(xpath = "//button[@class='btn btn-primary btn-md']")private WebElement paidBtn;
+	@FindBy(xpath = "//a[@href='edit_student.php?std_index=57749356&grade_id=558']") private WebElement editBtn;
+	@FindBy(xpath = "//button[.='Update']")private WebElement updateBtn;
 
 	
+
+
+	
+
+
+
+
+
 
 
 	public AddStudentPage(WebDriver driver)
 	{
 		PageFactory.initElements(driver, this);
 	}
+
+
+	
 
 
 	public WebElement getG_FullNameTxtFld() {
@@ -109,6 +124,20 @@ public class AddStudentPage
 	public List<WebElement> getStdNames() {
 		return StdNames;
 	}
+	public WebElement getPopUpSubmitBtn() {
+		return popUpSubmitBtn;
+	}
+	public WebElement getPaidBtn() {
+		return paidBtn;
+	}
+	public WebElement getEditBtn() {
+		return editBtn;
+	}
+
+	public WebElement getUpdateBtn() {
+		return updateBtn;
+	}
+
 
 
 	//Actions
@@ -157,19 +186,53 @@ public class AddStudentPage
 	}
 	public void selectCheckbox()
 	{
-		for (WebElement cb : checkbox) 
-		{
-			cb.click();
+		try {
+
+			for (WebElement cb : checkbox) 
+			{
+				cb.click();
+			}
+		} catch (Exception e) {
+
+			for (WebElement cb : checkbox) 
+			{
+				cb.click();
+			}
 		}
 	}
 	public void submitBtn()
 	{
-		submitBtn.click();
+		try {
+			submitBtn.click();
+		} catch (Exception e) {
+			submitBtn.click();
+		}
 	}
 	public void cancelBtn()
 	{
 		cancelBtn.click();
 	}
+	public void submitBtnOfPopup()
+	{
+		popUpSubmitBtn.click();
+	}
+	public void editBtn()
+	{
+		editBtn.click();
+	}
+	public void updateBtn()
+	{
+		updateBtn.click();
+	}
+	public void paidBtn()
+	{
+		try {
+			paidBtn.click();
+		} catch (Exception e) {
+			paidBtn.click();		}
+		
+	}
+	
 
 
 	//create teacher
@@ -195,32 +258,33 @@ public class AddStudentPage
 		uploadGuardianPhoto(path);
 		nextBtn();
 		wLib.selectElementInDropdown(grade, gradeDropdown);
-//		selectCheckbox();
-		wLib.waitTillElementToBeClickable(driver, submitBtn);
-		cancelBtn();
 	}
 	//edit student
-	public void editStudent(WebDriver driver, WebdriverUtility wLib, ExcelUtility eLib) throws Throwable, IOException
+	public void editStudent(WebDriver driver, String stdName, WebdriverUtility wLib, String grade, String studentName)
 	{
-		String iName = randomNumber+eLib.getExcelData("AddTeacher", 2, 1);
-		AdminDashboardPage adminDashboard = new AdminDashboardPage(driver);
+	
 		CommonComponents commonComponents = new CommonComponents(driver);
-		adminDashboard.clickOnstudentLink("All Student", wLib, driver);
-		commonComponents.selectGrade(wLib, driver, "Grade 2");
+		commonComponents.selectGrade(wLib, driver, grade);
 		commonComponents.clickOnSubmitBtnOfPage();
 		commonComponents.showDropdown(wLib);
-		commonComponents.search(iName);
-		//	boolean flag=false;
-			for (WebElement std : StdNames)
+		commonComponents.search(studentName);
+		for (WebElement sNames : StdNames) 
+		{
+			String text = sNames.getText();
+			if (text.contains(stdName))
 			{
-				String text = std.getText();
-				if(text.equalsIgnoreCase(iName))
-				{
-					std.click();
-					break;
-				}
+				System.out.println("Student is created");
+			}
+			else
+			{
+				System.out.println("student is not created");
 			}
 		}
+		 editBtn();
+		 updateBtn();
+		
+		
+	}
 	}
 
 

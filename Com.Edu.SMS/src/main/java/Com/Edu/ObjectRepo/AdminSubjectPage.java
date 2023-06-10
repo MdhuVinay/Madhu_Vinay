@@ -55,11 +55,12 @@ public class AdminSubjectPage
 	//create subject
 	public String createSubject(JavaUtility jLib, ExcelUtility eLib,WebDriver driver,WebdriverUtility wLib) throws Throwable
 	{
-		CommonComponents commonComponents = new CommonComponents(driver);
-		AdminDashboardPage adminDashboard=new AdminDashboardPage(driver);
+		
+		AdminDashboardPage adminDashboard = new AdminDashboardPage(driver);
 		adminDashboard.subjectLink();
 		String sub = jLib.getRandomNumber()+eLib.getExcelData("Subject", 0, 1);
 		subName.sendKeys(sub);
+		CommonComponents commonComponents = new CommonComponents(driver);
 		commonComponents.clickOnSubmitBtnOfPage();
 		return sub;	
 	}

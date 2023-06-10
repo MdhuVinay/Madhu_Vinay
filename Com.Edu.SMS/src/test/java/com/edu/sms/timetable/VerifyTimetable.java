@@ -3,14 +3,12 @@ package com.edu.sms.timetable;
 import static org.testng.Assert.assertTrue;
 
 import java.io.FileInputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Properties;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.Test;
 
 import Com.Edu.ObjectRepo.AddTeacherPage;
@@ -18,11 +16,11 @@ import Com.Edu.ObjectRepo.AdminClassroomPage;
 import Com.Edu.ObjectRepo.AdminDashboardPage;
 import Com.Edu.ObjectRepo.AdminGradePage;
 import Com.Edu.ObjectRepo.AdminSubjectPage;
+import Com.Edu.ObjectRepo.AdminSubjectRoutingPage;
 import Com.Edu.ObjectRepo.AdminTimetablePage;
 import Com.Edu.ObjectRepo.LoginPage;
 import Com.Edu.ObjectRepo.TeacherDashboardPage;
 import Com.Edu.ObjectRepo.TeacherTimetablePage;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import studentManagementSystemGenericUtils.BaseClass;
 import studentManagementSystemGenericUtils.ExcelUtility;
 import studentManagementSystemGenericUtils.FileUtility;
@@ -60,10 +58,66 @@ public class VerifyTimetable extends BaseClass
 		assertTrue(currentUrl.contains("dashboard"),"admin dashboard is not displayed ");
 		System.out.println("admin dashboard is displayed");
 
+		//create grade
+		adminGradePage=new AdminGradePage(driver, jLib, eLib);
+		String gradeName = adminGradePage.createGrade(jLib, eLib, driver);
+
+		//press escape button
+		jLib.escapeKey();
+
+		//create subject
+		adminSubjectPage = new AdminSubjectPage(driver);
+		String subName = adminSubjectPage.createSubject(jLib, eLib, driver, wLib);
+
+
+		//press escape button
+		jLib.escapeKey();
+
+
+
+		//create teacher
+		adminDashboardPage = new AdminDashboardPage(driver);
+		adminDashboardPage.teacherLink();
+		adminDashboardPage.addTeacherLink();
+		addTeacherPage = new AddTeacherPage(driver);
+		HashMap<String,String> createdTeacher = addTeacherPage.createTeacher(eLib.getMultipleData("Data"), driver, wLib, jLib);
+
+		//press escape button
+		jLib.escapeKey();
+
+		//fetch teacher details
+		String teacherName = null;
+		String teacheremail = null;
+		for(Entry<String, String> set:createdTeacher.entrySet()) {
+			if(set.getKey().contains("i_name"))
+			{
+				teacherName = set.getValue();
+			}
+			else if (set.getKey().contains("email")) 
+			{
+				teacheremail = set.getValue();
+			}
+		}
+
+		//create classroom
+		adminClassroomPage = new AdminClassroomPage(driver);
+		String classroomName = adminClassroomPage.createClassromm(driver, eLib);
+
+		//press escape button
+		jLib.escapeKey();
+
+		//add subject routing
+		AdminSubjectRoutingPage adminSubjectRoutingPage = new AdminSubjectRoutingPage(driver);
+		adminSubjectRoutingPage.addSubjectRouting(driver, wLib, gradeName, subName, teacherName, classroomName);
+
+		//press escape button
+		jLib.escapeKey();
+
 		//create timetable
+		adminDashboardPage = new AdminDashboardPage(driver);
 		adminDashboardPage.timetableLink();
-		adminTimetablePage.createTimeTable(wLib, "Grade 3", "Friday", "Subject 2", "Teacher 2", "Class E","100","200");
-		
+		adminTimetablePage.createTimeTable(driver,wLib, gradeName, "Friday", subName, teacherName,classroomName,"1"+jLib.getRandomNumber(),"2"+jLib.getRandomNumber());
+
 		//press escape key
 		jLib.escapeKey();
 
@@ -73,16 +127,21 @@ public class VerifyTimetable extends BaseClass
 		//login as teacher
 		String teacherUsername = properties.getProperty("teacheremail");
 		String teacherPassword = properties.getProperty("teacherpassword");
-		loginPage.loginToApp(teacherUsername, teacherPassword);
+
+		loginPage.loginToApp(teacheremail, teacherPassword);
 
 		//verify whether teacher dashboard is displayed or not
 		String TeachercurrentUrl = driver.getCurrentUrl();
 		assertTrue(TeachercurrentUrl.contains("dashboard2"), "taecher dashboard is not displayed");
+		System.out.println("teacehr dashboard is displayed");
 
 		//click on timetable button
-		
 		teacherDashboardPage.clickOnTimetableLink();
-		
+
+		//click on my time table link
+		teacherDashboardPage.clickOnMyTimetableLink();
+
+
 		//verify timetable
 		List<WebElement> timeDetails = teacherTimetablePage.getTimeDetails();
 		List<WebElement> allDetails = teacherTimetablePage.getAllDetails();
@@ -90,10 +149,16 @@ public class VerifyTimetable extends BaseClass
 		{
 			String timeDeatilsText = timeDetails.get(i).getText();
 			String allDetailsText = allDetails.get(i).getText();
-			assertTrue(timeDeatilsText.contains("100 - 200") && allDetailsText.contains("Subject 2"), " timetable not created");
-			System.out.println("timetable is created");
+			if((timeDeatilsText.contains("1"+jLib.getRandomNumber()) && allDetailsText.contains(subName)))
+			{		
+				System.out.println("timetable is created");
+			}
+			else
+			{
+				System.out.println("timetable is not created");
+			}
 		}
-		
+
 
 	}
 

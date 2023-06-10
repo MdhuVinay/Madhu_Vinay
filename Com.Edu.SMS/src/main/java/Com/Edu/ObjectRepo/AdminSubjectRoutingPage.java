@@ -54,13 +54,14 @@ public class AdminSubjectRoutingPage
 	public void addSubjectRouting(WebDriver driver,WebdriverUtility wLib,String grade, String subject, String teacher, String fee)
 	{
 		AdminDashboardPage adminDashboard = new AdminDashboardPage(driver);
-		CommonComponents commonComponents = new CommonComponents(driver);
 		adminDashboard.subjectRoutingLink();
+		CommonComponents commonComponents = new CommonComponents(driver);
 		commonComponents.clickOnAddBtn();
 		commonComponents.selectGrade(wLib, driver,grade);
 		commonComponents.selectSubject(subject, wLib);
 		commonComponents.selectTeacher(teacher, wLib);
 		fees.sendKeys(fee);
+		commonComponents = new CommonComponents(driver);
 		commonComponents.getSubmitBtnOfPopup().click();
 	}
 	
